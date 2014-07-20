@@ -1,20 +1,35 @@
-# Reproducible Research: Peer Assessment 1
+
+# Data Science Track on Coursera 
+### Course "Reproducible Research"  - Assigenment 1
+### Ilya Krasnov
 
 
-## Loading and preprocessing the data
+### Loading data
+
+```{r}
+activity <- read.csv("activity.csv")
+```
+
+### What is mean total number of steps taken per day?
+
+```{r}
+library(plyr)
+stepsperday <- ddply(activity,~date,summarise,sum=sum(steps))
+stepsperday <-stepsperday[,"sum"]
+stepsperday <- na.omit(stepsperday)
+hist(stepsperday)
+```
+
+#### Claculate mean and median
+```{r}
+mean(stepsperday)
+median(stepsperday)
+```
+
+### What is the average daily activity pattern?
 
 
-
-## What is mean total number of steps taken per day?
-
-
-
-## What is the average daily activity pattern?
-
-
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
+### Imputing missing values
+```{r}
+sum(!complete.cases(activity))
+```
