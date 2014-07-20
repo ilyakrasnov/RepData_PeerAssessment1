@@ -11,15 +11,14 @@
 activity <- read.csv("activity.csv")
 ```
 
+
 ### What is mean total number of steps taken per day?
 
 
 ```r
-library(plyr)
-stepsperday <- ddply(activity,~date,summarise,sum=sum(steps))
-stepsperday <-stepsperday[,"sum"]
-stepsperday <- na.omit(stepsperday)
-hist(stepsperday)
+stepsperday <- aggregate(activity["steps"],activity["date"],FUN=sum)
+
+hist(stepsperday$steps)
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
@@ -27,7 +26,7 @@ hist(stepsperday)
 #### Claculate mean and median
 
 ```r
-mean(stepsperday)
+mean(stepsperday$steps,na.rm=TRUE)
 ```
 
 ```
@@ -35,7 +34,7 @@ mean(stepsperday)
 ```
 
 ```r
-median(stepsperday)
+median(stepsperday$steps,na.rm=TRUE)
 ```
 
 ```
@@ -44,6 +43,22 @@ median(stepsperday)
 
 ### What is the average daily activity pattern?
 
+```r
+avgstepsperinterval <- aggregate(activity["steps"],activity["interval"],FUN=mean, na.rm=TRUE)
+plot(avgstepsperinterval,type="l",xlab="5 min interval",ylab="average steps taken")
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+#### Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
+```r
+avgstepsperinterval[which.max(avgstepsperinterval$steps),"interval"]
+```
+
+```
+## [1] 835
+```
 
 ### Imputing missing values
 
