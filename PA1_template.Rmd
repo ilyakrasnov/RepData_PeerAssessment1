@@ -36,7 +36,7 @@ plot(avgstepsperinterval,type="l",xlab="5 min interval",ylab="average steps take
 avgstepsperinterval[which.max(avgstepsperinterval$steps),"interval"]
 ```
 
-### Imputing missing values
+### Imputing missing values 
 
 #### Total number of missing values in the dataset
 ```{r}
@@ -44,6 +44,8 @@ sum(!complete.cases(activity))
 ```
 
 #### Create new dataset and fill it with average steps for intervals
+In order to calculate missing values average steps taken for a certain intervall are inserted
+
 ```{r}
 activityfillna <- activity
 
